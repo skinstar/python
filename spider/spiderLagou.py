@@ -96,7 +96,7 @@ def get_json(url, num,sessionId):
 
 
  
-def postGetData(url):
+def postGetData(url,headers):
     s = requests.Session()
     print('建立session：', s, '\n\n')
     s.get(url=url, headers=headers, timeout=3)
