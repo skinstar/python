@@ -8,6 +8,8 @@ from openpyxl import Workbook
 import os
 import numpy as np
 
+#测试
+
 url = 'https://www.lagou.com/jobs/v2/positionAjax.json'
 
 def writeExcel(json):
