@@ -7,10 +7,13 @@ from openpyxl import load_workbook
 from openpyxl import Workbook
 import os
 import numpy as np
+import pandas as pd
+from pathlib import *
+import random
 
 url = 'https://www.lagou.com/jobs/v2/positionAjax.json'
 
-def writeExcel(json):
+def writeExcel(path):
     wb = Workbook()
     wb.title = 'Sheet1'
     wb.create_sheet('sheet1',index=1)
@@ -39,8 +42,15 @@ def writeExcel(json):
     for f in range(len(feature[0])):
         sheet.append(feature[:, f].tolist())
     sheet['A2'] = '11'
-    wb.save(r'D:\导出.xlsx')
+    wb.save(path)
     print(wb.get_sheet_names())
+
+    name = os.path.basename(path).split('.')[0]
+    data_xls = pd.read_excel(Path(path), index_col=None, usecols=None, engine="openpyxl")
+    csvname = name + '.csv'
+    csvpath = Path('D:\\', csvname)
+    data_xls.to_csv(csvpath, encoding='utf-8')
+    print(name + ' ' + '转换完成')
 
 def getExcelJson(path):
     sessionId = ''
@@ -60,7 +70,8 @@ def getExcelJson(path):
                 if celB.value != None:
                     keyv = celA.value + '=' + str(celB.value)
                     sessionId += ';' + keyv
-            return sessionId[1:]
+            # return sessionId[1:]
+            return ''
         except:
             print('发生异常')
             return sessionId
@@ -90,10 +101,10 @@ def get_json(url, num,sessionId):
     'kd': 'python工程师'}
     requ = request.Request(url,headers=headers,data=parse.urlencode(data).encode('utf-8'),method='POST')
     result = request.urlopen(requ)
+    print('结果类型',type(result.read().decode('utf-8')))
     print('请求结果：',result.read().decode('utf-8'))
 
 
- 
 def postGetData(url,headers):
     s = requests.Session()
     print('建立session：', s, '\n\n')
@@ -108,8 +119,8 @@ def postGetData(url,headers):
     print('请求响应结果：', page_data, '\n\n')
     return page_data
  
-sessionId = getExcelJson('D:\\file\\数据1.xlsx')
-writeExcel('f')
+writeExcel('D:\导出.xlsx')
+sessionId = getExcelJson('D:\\file\\数据.xlsx')
 if sessionId.strip() == '':
     print("未获取到sessionId")
 else:
