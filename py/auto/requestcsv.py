@@ -1,11 +1,11 @@
 import requests
 import sys
-from py.auto.readcsv import ReadCsv
+from auto.readcsv import ReadCsv
 r = ReadCsv()
 ee = r.read_csv()
 item = []
 # print(ee)
-class requestcsv():
+class RequestCsv():
     def requests_csv(self):
         item = []
         for csv_i in ee:
@@ -21,6 +21,6 @@ class requestcsv():
             item.append(url)
         return item
 
-rr = requestcsv()
+rr = RequestCsv()
 res = rr.requests_csv()
 print('请求结果:',res)
