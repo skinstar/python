@@ -1,9 +1,10 @@
+# _*_ coding:utf-8 _*_
 import csv
 
 class ReadCsv():
     def read_csv(self):
         my_list = []
-        fileD = open('D:\\data.csv')
+        fileD = open('D:\\data.csv',encoding='utf-8',errors='ignore')
         csv_con = csv.reader(fileD)
         for csv_in in csv_con:
             my_list.append(csv_in)

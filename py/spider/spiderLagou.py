@@ -118,7 +118,7 @@ def postGetData(url,headers):
     page_data = res.json()
     print('请求响应结果：', page_data, '\n\n')
     return page_data
- 
+    
 writeExcel('D:\导出.xlsx')
 sessionId = getExcelJson('D:\\file\\数据.xlsx')
 if sessionId.strip() == '':
